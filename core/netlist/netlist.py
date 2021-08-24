@@ -15,7 +15,6 @@ class NetlistParser:
         nodes=0
         for i in range (len(fileNetlist)):
             parser=fileNetlist[i].split()
-            print(parser)
             try:
                 if (int(parser[1]) > nodes):
                     nodes=int(parser[1])

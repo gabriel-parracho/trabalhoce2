@@ -32,7 +32,6 @@ class ComplexFunctions:
                 for i in range (len(fileNetlist)):
                         if(fileNetlist[i][0] == 'L'):
                                 inductors+=(fileNetlist[i].split())
-                print (inductors)
                 for i in range (int(len(inductors)/4)):
                         nodeA=int((inductors[4*i+1]))
                         nodeB=int((inductors[4*i+2]))
@@ -49,7 +48,6 @@ class ComplexFunctions:
                 for i in range (len(fileNetlist)):
                         if(fileNetlist[i][0] == 'C'):
                                 capacitors+=(fileNetlist[i].split())
-                print (capacitors)
                 for i in range (int(len(capacitors)/4)):
                         nodeA=int((capacitors[4*i+1]))
                         nodeB=int((capacitors[4*i+2]))
@@ -66,7 +64,6 @@ class ComplexFunctions:
                 for i in range (len(fileNetlist)):
                         if(fileNetlist[i][0] == 'K'):
                                 transformers+=(fileNetlist[i].split())
-                print (transformers)
                 for i in range (int(len(transformers)/8)):
                         nodeA=int((transformers[4*i+1]))
                         nodeB=int((transformers[4*i+2]))

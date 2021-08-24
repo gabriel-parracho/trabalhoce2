@@ -1,12 +1,19 @@
 from core import MatrixFunctions,NetlistParser,ComponentFunctions,Solver,ComplexFunctions
+import numpy as np
 
 
 def Main():
+    print("#"*40)
+    print("Trabalho de Circuitos Elétricos 2\n Gabriel Parracho dos Santos Leal\n Professora Fernanda Duarte Vilela Reis de Oliveira")
+    print("#"*40)
+    filename=str(input('Insira o nome da netlist a ser analisada (incluindo o .txt): '))
+    print("#"*40)
+
     #opening file
-    fileNetlist = NetlistParser.openNetlist('netlist.txt')
+    fileNetlist = NetlistParser.openNetlist(filename)
     #creating empty matrix and vector
-    GmMatrix=MatrixFunctions.makeMatrix(NetlistParser.checkNumberOfNodes('netlist.txt'))
-    IVector=MatrixFunctions.makeIVector(NetlistParser.checkNumberOfNodes('netlist.txt'))
+    GmMatrix=MatrixFunctions.makeMatrix(NetlistParser.checkNumberOfNodes(filename))
+    IVector=MatrixFunctions.makeIVector(NetlistParser.checkNumberOfNodes(filename))
     #checking system type trying to get freq
     freq=ComplexFunctions.getFreq(fileNetlist)
     if freq == None:
@@ -23,9 +30,6 @@ def Main():
         GmMatrix,IVector =MatrixFunctions.fixGround(GmMatrix,IVector)
         #solving the system
         EMatrix= Solver.solveSystem(GmMatrix,IVector)
-        print(GmMatrix)
-        print(IVector)
-        print("e: ",EMatrix)
 
     elif operationType == 2:
         #adding passive components
@@ -41,33 +45,16 @@ def Main():
         GmMatrix,IVector =MatrixFunctions.fixGround(GmMatrix,IVector)
         #solving the system
         EMatrix= Solver.solveSystem(GmMatrix,IVector)
-        print(GmMatrix)
-        print(IVector)
-        print("e: ",EMatrix)
-
-    # #adding components
-    # GmMatrix=ComponentFunctions.addResistor(GmMatrix,fileNetlist)
-    # GmMatrix=ComponentFunctions.addCurrentSourceVcontrolled(GmMatrix,fileNetlist)
-    # IVector=ComponentFunctions.addCurrentSource(IVector,fileNetlist)
-    # #fixing ground
-    # GmMatrix,IVector =MatrixFunctions.fixGround(GmMatrix,IVector)
-    # EMatrix= Solver.solveSystem(GmMatrix,IVector)
-
-
+    #Matrix printing
+    print("Gm Matrix:")
+    print(np.array(GmMatrix),"\n")
     # print(GmMatrix)
-    # print(IVector)
-    # print("e: ",EMatrix)
-    # # print("abaixo é a fixed")
-    # # MatrixFunctions.fixGround(GmMatrix,IVector)
-    # # fileNetlist = NetlistParser.openNetlist('netlist.txt')
-    # # operationType = int(input('Insira o tipo de operação: \n 1 - Tensões nodais simples\n\
-    # #                             2 - Tensões nodais fasores em RP\n'))
+    print("I Vector: ")
+    print(np.array(IVector), "\n")
 
-    # # if (operationType==1):
-    # #     #inserir 
-    # #     pass
-    # # if (operationType==2):
-    # #     #inserir
-    # #     pass
+    print("e Array: ")
+    print(np.array(EMatrix), "\n")
+    
+
 
 Main()
