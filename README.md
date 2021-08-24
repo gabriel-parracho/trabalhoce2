@@ -23,7 +23,7 @@ Install the `requirements.txt`
 pip install -r requirements.txt
 ```
 
-Put some netlists `.txt` file in the same directory where `run.py` is
+Put some `netlists.txt` file in the same directory where `run.py` is
 
 Launch the program
 
@@ -33,4 +33,4 @@ python run.py
 
 # How to use
 
-The program will ask wich file you'll want to solve. You should type `<name>.txt` and press 
+The program will ask wich file you'll want to solve. You should type `<name>.txt` and press `Enter`
