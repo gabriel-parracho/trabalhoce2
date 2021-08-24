@@ -1,4 +1,4 @@
-import math
+import cmath
 
 class ComplexFunctions:
         def __init__(self):
@@ -22,7 +22,7 @@ class ComplexFunctions:
                                         nodeB= int(parser[2])
                                         A = float(parser[4])
                                         phase = float(parser[6])
-                                        value = A*math.exp(1j*phase)
+                                        value = A*cmath.exp(1j*phase)
                                         IVector[(nodeA)] -= value
                                         IVector[(nodeB)] += value
                 return IVector
@@ -36,7 +36,7 @@ class ComplexFunctions:
                 for i in range (int(len(inductors)/4)):
                         nodeA=int((inductors[4*i+1]))
                         nodeB=int((inductors[4*i+2]))
-                        G=(1/float(1j*freq*(inductors[4*i+3])))
+                        G=(1/(1j*freq*(float(inductors[4*i+3]))))
                         
                         GmMatrix[nodeA][nodeA] += G
                         GmMatrix[nodeB][nodeB] += G
@@ -53,7 +53,7 @@ class ComplexFunctions:
                 for i in range (int(len(capacitors)/4)):
                         nodeA=int((capacitors[4*i+1]))
                         nodeB=int((capacitors[4*i+2]))
-                        G=(float(1j*freq*(capacitors[4*i+3])))
+                        G=((1j*freq*(float(capacitors[4*i+3]))))
                         
                         GmMatrix[nodeA][nodeA] += G
                         GmMatrix[nodeB][nodeB] += G
