@@ -9,7 +9,6 @@ class ComponentFunctions:
                 for i in range (len(fileNetlist)):
                         if(fileNetlist[i][0] == 'R'):
                                 resistors+=(fileNetlist[i].split())
-                print (resistors)
                 for i in range (int(len(resistors)/4)):
                         nodeA=int((resistors[4*i+1]))
                         nodeB=int((resistors[4*i+2]))

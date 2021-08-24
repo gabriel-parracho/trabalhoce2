@@ -14,9 +14,14 @@ class NetlistParser:
         fileNetlist=NetlistParser.openNetlist(fileName)
         nodes=0
         for i in range (len(fileNetlist)):
-            if (int((fileNetlist[i][3])) > nodes):
-                nodes=int(fileNetlist[i][3])
-            if (int((fileNetlist[i][5])) > nodes):
-                nodes=int(fileNetlist[i][5])
+            parser=fileNetlist[i].split()
+            print(parser)
+            try:
+                if (int(parser[1]) > nodes):
+                    nodes=int(parser[1])
+                if (int(parser[2]) > nodes):
+                    nodes=int(parser[2])
+            except:
+                pass
         return nodes
 
