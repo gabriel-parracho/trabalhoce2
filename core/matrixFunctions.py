@@ -7,8 +7,11 @@ class MatrixFunctions:
         
     #create a square matrix node x node
     def makeMatrix(nodes):
-        matrix = []
-        for i in range(nodes):
-            for j in range(nodes):
-                matrix.append([0])
-        print(matrix)
+        matrix = [[0]*nodes]*nodes
+        return matrix
+
+    #create a vector for currents
+    def makeIVector(nodes):
+        IVector = [0]*nodes
+
+        return IVector

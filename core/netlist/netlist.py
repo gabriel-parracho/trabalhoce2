@@ -8,7 +8,6 @@ class NetlistParser:
         #file reading
         with open(fileName) as f:
             fileNetlist = f.read().splitlines()
-        print(fileNetlist)
         return fileNetlist
         
     def checkNumberOfNodes(fileName):
