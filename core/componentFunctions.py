@@ -5,39 +5,46 @@ class ComponentFunctions:
                 pass
 
         def addResistor(GmMatrix,fileNetlist):
-                print(GmMatrix)
-                for i in range(len(fileNetlist)):
-                        print(fileNetlist[i][0])
-                        if (fileNetlist[i][0] == 'R'):
-                                parser=(fileNetlist[i].split())
-                                print(parser)
-                                nodeA= int(parser[1])
-                                nodeB= int(parser[2])
-                                R= int(parser[3])
-                                
-                                GmMatrix[nodeA-1][nodeA-1] += (1/R)
-                                GmMatrix[nodeB-1][nodeB-1] += (1/R)
-
-
-                                # if nodeA != 0:
-                                #         GmMatrix[nodeA-1][nodeA-1] += 1/R
-                                # if nodeB != 0:
-                                #         GmMatrix[nodeB-1][nodeB-1] += 1/R
-                                # if ((nodeA != 0) and (nodeB != 0)):
-                                #         GmMatrix[nodeA-1][nodeB-1] += (1/R)*-1
-                                #         GmMatrix[nodeB-1][nodeA-1] += (1/R)*-1
+                resistors=[]
+                for i in range (len(fileNetlist)):
+                        if(fileNetlist[i][0] == 'R'):
+                                resistors+=(fileNetlist[i].split())
+                print (resistors)
+                for i in range (int(len(resistors)/4)):
+                        nodeA=int((resistors[4*i+1]))
+                        nodeB=int((resistors[4*i+2]))
+                        G=(1/float((resistors[4*i+3])))
+                        
+                        GmMatrix[nodeA][nodeA] += G
+                        GmMatrix[nodeB][nodeB] += G
+                        GmMatrix[nodeA][nodeB] -= G
+                        GmMatrix[nodeB][nodeA] -= G
                 return GmMatrix
 
-        def currentSource(IVector,fileNetlist):
-                print(IVector)
+
+        def addCurrentSource(IVector,fileNetlist):
                 for i in range (len(fileNetlist)):
                         if (fileNetlist[i][0] == 'I'):
                                 parser=(fileNetlist[i].split())
+                                if (parser[3]) == 'DC':
+                                        nodeA= int(parser[1])
+                                        nodeB= int(parser[2])
+                                        value= int(parser[4])
+                                        IVector[(nodeA)] += -value
+                                        IVector[(nodeB)] += value
+                return IVector
+
+        def addCurrentSourceVcontrolled(GmMatrix,fileNetlist):
+                for i in range (len(fileNetlist)):
+                        if (fileNetlist[i][0] == 'G'):
+                                parser=(fileNetlist[i].split())
                                 nodeA= int(parser[1])
                                 nodeB= int(parser[2])
-                                value= int(parser[3])
-                                if nodeA != 0:
-                                        IVector[(nodeA-1)] += -value
-                                if nodeB != 0:
-                                        IVector[(nodeB-1)] += value
-                return IVector
+                                Vc= int(parser[3])
+                                Vd= int(parser[4])
+                                Transconductance = float(parser[5])
+                                GmMatrix[nodeA][Vc] += Transconductance
+                                GmMatrix[nodeA][Vd] -= Transconductance
+                                GmMatrix[nodeB][Vc] -= Transconductance
+                                GmMatrix[nodeB][Vd] += Transconductance
+                return GmMatrix
