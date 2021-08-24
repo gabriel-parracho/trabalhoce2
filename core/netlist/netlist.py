@@ -5,9 +5,19 @@ class NetlistParser:
         pass
 
     def openNetlist(fileName):
-        with open(fileName) as f: # O with já fecha o arquivo após sua finalização (f.close)
+        #file reading
+        with open(fileName) as f:
             fileNetlist = f.read().splitlines()
         print(fileNetlist)
+        return fileNetlist
         
-    def checkNumberOfNodes(fileNetlist):
-        pass
+    def checkNumberOfNodes(fileName):
+        fileNetlist=NetlistParser.openNetlist(fileName)
+        nodes=0
+        for i in range (len(fileNetlist)):
+            if (int((fileNetlist[i][3])) > nodes):
+                nodes=int(fileNetlist[i][3])
+            if (int((fileNetlist[i][5])) > nodes):
+                nodes=int(fileNetlist[i][5])
+        return nodes
+
