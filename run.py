@@ -3,11 +3,11 @@ import numpy as np
 
 
 def Main():
-    print("#"*40)
-    print("Trabalho de Circuitos Elétricos 2\n Gabriel Parracho dos Santos Leal\n Professora Fernanda Duarte Vilela Reis de Oliveira")
-    print("#"*40)
+    print("#"*80)
+    print("Trabalho de Circuitos Elétricos 2\nAluno Gabriel Parracho dos Santos Leal\nProfessora Fernanda Duarte Vilela Reis de Oliveira")
+    print("#"*80)
     filename=str(input('Insira o nome da netlist a ser analisada (incluindo o .txt): '))
-    print("#"*40)
+    print("#"*80)
 
     #opening file
     fileNetlist = NetlistParser.openNetlist(filename)
@@ -46,15 +46,17 @@ def Main():
         #solving the system
         EMatrix= Solver.solveSystem(GmMatrix,IVector)
     #Matrix printing
-    print("Gm Matrix:")
+    print("\nGm Matrix:")
     print(np.array(GmMatrix),"\n")
+    print("-"*80)
     # print(GmMatrix)
     print("I Vector: ")
     print(np.array(IVector), "\n")
+    print("-"*80)
 
     print("e Array: ")
     print(np.array(EMatrix), "\n")
-    
+    print("-"*80)
 
 
 Main()
